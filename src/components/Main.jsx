@@ -6,24 +6,26 @@ import {
   TouchableOpacity,
   Button,
   Pressable,
+  Image,
 } from "react-native";
 import Constants from "expo-constants";
-import { useFonts } from "expo-font"
+import { useFonts } from "expo-font";
+import Boton from "./Boton.jsx";
 
 const Main = () => {
-
   const [fuentesCargadas] = useFonts({
     "Fredoka Semibold": require("../assets/fonts/Fredoka-SemiBold.ttf"),
     "Fredoka Regular": require("../assets/fonts/Fredoka-Regular.ttf"),
-    "Inter Regular": require("../assets/fonts/Inter-Regular.ttf")
-  })
-  
+  });
+
   if (!fuentesCargadas) {
-    return null
+    return null;
   }
 
   return (
     <View style={styles.container}>
+      
+      <Image style={styles.imagen} source={require("../assets/icons/logo.png")} />
 
       <Text style={styles.titulo}>
         <Text style={styles.mostaza}>Easy</Text>
@@ -32,57 +34,25 @@ const Main = () => {
 
       <Text style={styles.subtitulo}>Escaneá, conocé, disfrutá</Text>
 
-      <TouchableOpacity style={styles.botonIniciarSesion}>
-        <Text style={styles.iniciarSesion}>Iniciar Sesión</Text>
-      </TouchableOpacity>
-      
-      <TouchableOpacity style={styles.botonRegistrarse}>
-        <Text style={styles.registrarse}>Registrarse</Text>
-      </TouchableOpacity>
-
+      <Boton green contenido="Iniciar Sesión" />
+      <Boton mustard contenido="Registrarse" />
+       
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-
-  botonRegistrarse: {
-    elevation: 8,
-    backgroundColor: "#D1881A",
-    borderRadius: 20,
-    paddingVertical: 10,
-    paddingHorizontal: 12,
-  },
-
-  registrarse: {
-    fontSize: 11,
-    color: "#fff",
-    fontWeight: "bold",
+  imagen: {
     alignSelf: "center",
-    fontFamily: 'Inter Regular'
-  },
-
-  iniciarSesion: {
-    fontSize: 11,
-    color: "#fff",
-    fontWeight: "bold",
-    alignSelf: "center",
-    fontFamily: 'Inter Regular',
-  },
-
-  botonIniciarSesion: {
-    elevation: 8,
-    backgroundColor: "#119B48",
-    borderRadius: 20,
-    paddingVertical: 10,
-    paddingHorizontal: 12,
+    height: 200,
+    width: 200,
   },
 
   container: {
     padding: 80,
     marginTop: Constants.statusBarHeight,
-    backgroundColor: '#FFFAF3',
-    flex: 1
+    backgroundColor: "#FFFAF3",
+    flex: 1,
   },
 
   titulo: {
@@ -90,15 +60,15 @@ const styles = StyleSheet.create({
     fontSize: 40,
     paddingBottom: 5,
     textAlign: "center",
-    fontFamily: 'Fredoka SemiBold'
+    fontFamily: "Fredoka SemiBold",
   },
 
   subtitulo: {
     fontStyle: "italic",
     textAlign: "center",
     paddingBottom: 20,
-    fontFamily: 'Inter Regular',
-    fontSize: 14
+    fontFamily: "Inter Regular",
+    fontSize: 14,
   },
 
   mostaza: {
