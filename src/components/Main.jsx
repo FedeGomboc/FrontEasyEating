@@ -11,15 +11,14 @@ import {
 import Constants from "expo-constants";
 import { useFonts } from "expo-font";
 import Boton from "./Boton.jsx";
+import Titulo from "./Titulo.jsx"
 
 const Main = () => {
   const [fuentesCargadas] = useFonts({
-    "Fredoka Semibold": require("../assets/fonts/Fredoka-SemiBold.ttf"),
-    "Fredoka Regular": require("../assets/fonts/Fredoka-Regular.ttf"),
-  });
-
+    "Inter Regular": require("../assets/fonts/Inter-Regular.ttf"),
+  })
   if (!fuentesCargadas) {
-    return null;
+    return null
   }
 
   return (
@@ -27,15 +26,12 @@ const Main = () => {
       
       <Image style={styles.imagen} source={require("../assets/icons/logo.png")} />
 
-      <Text style={styles.titulo}>
-        <Text style={styles.mostaza}>Easy</Text>
-        <Text style={styles.verde}>Eating</Text>
-      </Text>
+      <Titulo texto1="Easy" texto2="Eating"/>
 
       <Text style={styles.subtitulo}>Escaneá, conocé, disfrutá</Text>
 
-      <Boton green contenido="Iniciar Sesión" />
-      <Boton mustard contenido="Registrarse" />
+      <Boton green contenido="Iniciar Sesión"/>
+      <Boton mustard contenido="Registrarse"/>
        
     </View>
   );
@@ -55,28 +51,12 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 
-  titulo: {
-    fontWeight: "bold",
-    fontSize: 40,
-    paddingBottom: 5,
-    textAlign: "center",
-    fontFamily: "Fredoka SemiBold",
-  },
-
   subtitulo: {
     fontStyle: "italic",
     textAlign: "center",
     paddingBottom: 20,
     fontFamily: "Inter Regular",
     fontSize: 14,
-  },
-
-  mostaza: {
-    color: "#D1881A",
-  },
-
-  verde: {
-    color: "#119B48",
   },
 });
 

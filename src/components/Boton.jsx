@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     elevation: 8,
     borderRadius: 20,
     paddingVertical: 10,
-    paddingHorizontal: 12,
+    paddingHorizontal: 12
   },
 
   text: {
