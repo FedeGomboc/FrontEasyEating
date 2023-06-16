@@ -10,29 +10,35 @@ import {
 } from "react-native";
 import Constants from "expo-constants";
 import { useFonts } from "expo-font";
-import Boton from "./Boton.jsx";
-import Titulo from "./Titulo.jsx"
+import Boton from "../components/Boton.jsx";
+import Titulo from "../components/Titulo.jsx";
+import { useNavigation } from "@react-navigation/native";
 
-const Main = () => {
+const LoginScreen = () => {
+
   const [fuentesCargadas] = useFonts({
     "Inter Regular": require("../assets/fonts/Inter-Regular.ttf"),
-  })
+  });
   if (!fuentesCargadas) {
-    return null
+    return null;
   }
+
+  const navigation = useNavigation()
 
   return (
     <View style={styles.container}>
-      
-      <Image style={styles.imagen} source={require("../assets/icons/logo.png")} />
+      <Image
+        style={styles.imagen}
+        source={require("../assets/icons/logo.png")}
+      />
 
-      <Titulo texto1="Easy" texto2="Eating"/>
+      <Titulo texto1="Easy" texto2="Eating" />
 
       <Text style={styles.subtitulo}>Escaneá, conocé, disfrutá</Text>
-
-      <Boton green contenido="Iniciar Sesión"/>
-      <Boton mustard contenido="Registrarse"/>
-       
+      
+      <Boton green contenido="Iniciar Sesión" destino='Prueba'/>
+      <Text> </Text>
+      <Boton mustard contenido="Registrarse" />
     </View>
   );
 };
@@ -54,10 +60,10 @@ const styles = StyleSheet.create({
   subtitulo: {
     fontStyle: "italic",
     textAlign: "center",
-    paddingBottom: 20,
+    paddingBottom: 25,
     fontFamily: "Inter Regular",
     fontSize: 14,
   },
 });
 
-export default Main;
+export default LoginScreen;

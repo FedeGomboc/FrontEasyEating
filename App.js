@@ -1,9 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import Main from './src/components/Main.jsx'
+import Tabs from './src/Tabs.js';
 
 export default function App() {
-  return <Main/>
+  return <Tabs/>
 }
 
 

@@ -9,8 +9,10 @@ import {
   Image,
 } from "react-native";
 import { useFonts } from "expo-font";
+import { useNavigation } from "@react-navigation/native";
 
-const Boton = ({green, mustard,  contenido}) => {
+
+const Boton = ({green, mustard,  contenido, destino}) => {
 
   const [fuentesCargadas] = useFonts({
     "Inter Regular": require("../assets/fonts/Inter-Regular.ttf"),
@@ -25,8 +27,10 @@ const Boton = ({green, mustard,  contenido}) => {
     mustard && styles.mustard
   ]
 
+  const navigation = useNavigation()
+
   return (
-    <TouchableOpacity style={botonStyles}>
+    <TouchableOpacity style={botonStyles} onPress={ () => navigation.navigate(destino) }>
       <Text style={styles.text}>{contenido}</Text>
     </TouchableOpacity>
   )
@@ -44,8 +48,8 @@ const styles = StyleSheet.create({
   boton: {
     elevation: 8,
     borderRadius: 20,
-    paddingVertical: 10,
-    paddingHorizontal: 12
+    paddingVertical: 12,
+    paddingHorizontal: 13
   },
 
   text: {
