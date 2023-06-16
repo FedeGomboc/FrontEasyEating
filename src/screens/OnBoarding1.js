@@ -13,13 +13,14 @@ import { useFonts } from "expo-font";
 import Boton from "../components/Boton.jsx";
 import Titulo from "../components/Titulo.jsx";
 
-const LoginScreen = () => {
-  const [fuentesCargadas] = useFonts({
-    "Inter Regular": require("../assets/fonts/Inter-Regular.ttf"),
-  });
-  if (!fuentesCargadas) {
-    return null;
-  }
+const OnBoarding1 = () => {
+
+    const [fuentesCargadas] = useFonts({
+        "Inter Regular": require("../assets/fonts/Inter-Regular.ttf"),
+      });
+      if (!fuentesCargadas) {
+        return null;
+      }
 
   return (
     <View style={styles.container}>
@@ -28,13 +29,9 @@ const LoginScreen = () => {
         source={require("../assets/icons/logo.png")}
       />
 
-      <Titulo texto1="Easy" texto2="Eating" />
+      <Text style={styles.subtitulo}>Escaneá productos para descubrir si son aptos para vos</Text>
 
-      <Text style={styles.subtitulo}>Escaneá, conocé, disfrutá</Text>
-
-      <Boton green contenido="Iniciar Sesión" ruta="Prueba" />
-      <Text> </Text>
-      <Boton mustard contenido="Registrarse" />
+      <Boton mustard contenido="Siguiente" ruta="Login"/>
     </View>
   );
 };
@@ -62,4 +59,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginScreen;
+export default OnBoarding1;
