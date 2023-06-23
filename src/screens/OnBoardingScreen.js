@@ -13,7 +13,7 @@ import { useFonts } from "expo-font";
 import Boton from "../components/Boton.jsx";
 import Titulo from "../components/Titulo.jsx";
 
-const OnBoarding1 = () => {
+const OnBoardingScreen = () => {
 
     const [fuentesCargadas] = useFonts({
         "Inter Regular": require("../assets/fonts/Inter-Regular.ttf"),
@@ -59,4 +59,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default OnBoarding1;
+export default OnBoardingScreen;

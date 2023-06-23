@@ -32,9 +32,9 @@ const LoginScreen = () => {
 
       <Text style={styles.subtitulo}>Escaneá, conocé, disfrutá</Text>
 
-      <Boton green contenido="Iniciar Sesión" ruta="Prueba" />
+      <Boton green contenido="Iniciar Sesión" ruta="Inicio Sesión" />
       <Text> </Text>
-      <Boton mustard contenido="Registrarse" />
+      <Boton mustard contenido="Registrarse" ruta="Registrarse" />
     </View>
   );
 };
