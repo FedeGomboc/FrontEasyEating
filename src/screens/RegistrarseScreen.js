@@ -2,16 +2,10 @@ import React from "react";
 import { useState } from "react";
 import {
   StyleSheet,
-  Text,
   View,
-  TouchableOpacity,
-  Button,
-  Pressable,
-  Image,
   TextInput,
 } from "react-native";
 import Constants from "expo-constants";
-import { useFonts } from "expo-font";
 import Boton from "../components/Boton.jsx";
 import Titulo from "../components/Titulo.jsx";
 import EspacioVacio from "../components/EspacioVacio.jsx";
@@ -77,20 +71,12 @@ const RegistrarseScreen = () => {
       
       <EspacioVacio altura={35}/>
 
-      <Boton green contenido="CREAR CUENTA"/>
+      <Boton green contenido="CREAR CUENTA" ruta="Condicion"/>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  bottomTextContainer: {
-    position: "absolute",
-    bottom: 20,
-    left: 0,
-    right: 0,
-    alignItems: "center",
-  },
-
   input: {
     height: 40,
     margin: 8,
