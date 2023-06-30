@@ -3,9 +3,6 @@ import {
   StyleSheet,
   Text,
   View,
-  TouchableOpacity,
-  Button,
-  Pressable,
   Image,
 } from "react-native";
 import Constants from "expo-constants";

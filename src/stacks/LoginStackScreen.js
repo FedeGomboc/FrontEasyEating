@@ -14,7 +14,7 @@ const LoginStackScreen = () => {
       <LoginStack.Screen name="Login" component={LoginScreen} />
       <LoginStack.Screen name="Inicio Sesión" component={InicioSesionScreen} />
       <LoginStack.Screen name="Registrarse" component={RegistrarseScreen} />
-      <LoginStack.Screen name="On Boarding" component={OnBoardingScreen} />
+      <LoginStack.Screen name="Onboarding" component={OnBoardingScreen} />
     </LoginStack.Navigator>
   );
 };
