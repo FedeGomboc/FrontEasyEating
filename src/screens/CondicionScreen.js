@@ -5,48 +5,57 @@ import {
   Text,
   View,
   TouchableOpacity,
-  TextInput,
 } from "react-native";
 import Constants from "expo-constants";
-import { useFonts } from "expo-font";
-import Boton from "../components/Boton.jsx";
-import Titulo from "../components/Titulo.jsx";
-import axios from "axios"
+import axios from "axios";
 import EspacioVacio from "../components/EspacioVacio.jsx";
 
 const CondicionScreen = () => {
-  let host = "A-PHZ2-CIDI-010"
-  let port = "5000"
+  let host = "A-PHZ2-CIDI-010";
+  let port = "5000";
 
+  const [limitaciones, SetLimitaciones] = useState([]);
+
+  const obtenerLimitaciones = () => {
     axios
-    .get(`http://${host}:${port}/api/limitaciones/`)
-    .then((result) => {
-      const limitaciones = result.data
+      .get(`http://${host}:${port}/api/limitaciones/`)
+      .then((result) => {
+        const limitaciones = result.data;
 
-      limitaciones.map((Limitacion) => {
-        const {idLimitacion, limitacion} = Limitacion
+        limitaciones.map((Limitacion) => {
+          const { idLimitacion, limitacion } = Limitacion;
 
-        console.log(`
-        ID: ${idLimitacion}
-        Nombre: ${limitacion}
-        `)
+          console.log(`
+          ID: ${idLimitacion}
+          Nombre: ${limitacion}
+        `);
+
+          SetLimitaciones(limitaciones);
+        });
       })
-    })
-    .catch ((error) => {
-      console.log(error)
-    })  
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <View style={styles.container}>
       <Text style={styles.text}>¿Cual es tu condición?</Text>
 
-      <EspacioVacio altura={15}/>
+      <EspacioVacio altura={15} />
 
-      <TouchableOpacity style={styles.boton}>
+      <TouchableOpacity
+        style={styles.boton}
+        onPress={() => obtenerLimitaciones()}
+      >
         <Text style={styles.textoBoton}>Diabetes</Text>
       </TouchableOpacity>
 
-      
+      <Text>
+        {limitaciones.length > 0
+          ? limitaciones.map((limitacion) => limitacion.limitacion).join(", ")
+          : "Cargando limitaciones..."}
+      </Text>
     </View>
   );
 };
@@ -59,7 +68,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     backgroundColor: "#119B48",
   },
-  
+
   textoBoton: {
     fontSize: 11,
     color: "#fff",
@@ -68,7 +77,7 @@ const styles = StyleSheet.create({
     fontFamily: "Inter Regular",
     fontSize: 30,
   },
-  
+
   text: {
     fontWeight: "bold",
     fontSize: 28,
