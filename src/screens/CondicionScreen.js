@@ -11,47 +11,70 @@ import Constants from "expo-constants";
 import { useFonts } from "expo-font";
 import Boton from "../components/Boton.jsx";
 import Titulo from "../components/Titulo.jsx";
+import axios from "axios"
+import EspacioVacio from "../components/EspacioVacio.jsx";
 
-const condicionScreen = () => {
+const CondicionScreen = () => {
+  let host = "A-PHZ2-CIDI-010"
+  let port = "5000"
 
-    const [isActive, setIsActive] = useState(false);
+    axios
+    .get(`http://${host}:${port}/api/limitaciones/`)
+    .then((result) => {
+      const limitaciones = result.data
 
-    const handleClick = () => {
-        // 👇️ toggle
-        setIsActive(current => !current);
-        
-        // 👇️ or set to true
-        // setIsActive(true);
-      };
+      limitaciones.map((Limitacion) => {
+        const {idLimitacion, limitacion} = Limitacion
+
+        console.log(`
+        ID: ${idLimitacion}
+        Nombre: ${limitacion}
+        `)
+      })
+    })
+    .catch ((error) => {
+      console.log(error)
+    })  
 
   return (
     <View style={styles.container}>
       <Text style={styles.text}>¿Cual es tu condición?</Text>
 
-        <Boton green contenido="Hola" onPress={handleClick}/>
-        
+      <EspacioVacio altura={15}/>
 
+      <TouchableOpacity style={styles.boton}>
+        <Text style={styles.textoBoton}>Diabetes</Text>
+      </TouchableOpacity>
+
+      
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  boton: {
+    elevation: 8,
+    borderRadius: 20,
+    paddingVertical: 20,
+    paddingHorizontal: 16,
+    backgroundColor: "#119B48",
+  },
+  
+  textoBoton: {
+    fontSize: 11,
+    color: "#fff",
+    fontWeight: "bold",
+    alignSelf: "center",
+    fontFamily: "Inter Regular",
+    fontSize: 30,
+  },
+  
   text: {
     fontWeight: "bold",
     fontSize: 28,
     paddingBottom: 5,
     textAlign: "center",
     fontFamily: "Fredoka SemiBold",
-  },
-
-  input: {
-    height: 40,
-    margin: 8,
-    borderWidth: 1,
-    padding: 10,
-    fontSize: 11.5,
-    fontFamily: "Inter Regular",
-    borderRadius: 10,
   },
 
   container: {
@@ -62,4 +85,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default condicionScreen;
+export default CondicionScreen;
