@@ -66,6 +66,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#119B48",
     marginBottom: 20,
     width: 200,
+    height: 90
   },
 
   textoBoton: {
