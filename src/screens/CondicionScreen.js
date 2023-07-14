@@ -1,17 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import Constants from "expo-constants";
 import axios from "axios";
 import EspacioVacio from "../components/EspacioVacio.jsx";
 
 const CondicionScreen = () => {
-  let host = "A-PHZ2-CIDI-010";
+  let host = "A-PHZ2-CIDI-011";
   let port = "5000";
 
   const [limitaciones, SetLimitaciones] = useState([]);
@@ -38,24 +33,26 @@ const CondicionScreen = () => {
       });
   };
 
+  useEffect(() => {
+    obtenerLimitaciones();
+  }, []);
+
   return (
     <View style={styles.container}>
       <Text style={styles.text}>¿Cual es tu condición?</Text>
 
       <EspacioVacio altura={15} />
 
-      <TouchableOpacity
-        style={styles.boton}
-        onPress={() => obtenerLimitaciones()}
-      >
-        <Text style={styles.textoBoton}>Diabetes</Text>
-      </TouchableOpacity>
-
-      <Text>
-        {limitaciones.length > 0
-          ? limitaciones.map((limitacion) => limitacion.limitacion).join(", ")
-          : "Cargando limitaciones..."}
-      </Text>
+      {limitaciones.length > 0
+        ? limitaciones.map((limitacion) => (
+            <TouchableOpacity style={styles.boton}>
+              <Text style={styles.textoBoton}>{limitacion.limitacion}</Text>
+            </TouchableOpacity>
+          ))
+        : 
+        <TouchableOpacity style={styles.boton}>
+        <Text style={styles.textoBoton}>Cargando</Text>
+        </TouchableOpacity>}
     </View>
   );
 };
@@ -67,10 +64,11 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     paddingHorizontal: 16,
     backgroundColor: "#119B48",
+    marginBottom: 20,
+    width: 200,
   },
 
   textoBoton: {
-    fontSize: 11,
     color: "#fff",
     fontWeight: "bold",
     alignSelf: "center",
@@ -80,7 +78,7 @@ const styles = StyleSheet.create({
 
   text: {
     fontWeight: "bold",
-    fontSize: 28,
+    fontSize: 35,
     paddingBottom: 5,
     textAlign: "center",
     fontFamily: "Fredoka SemiBold",
