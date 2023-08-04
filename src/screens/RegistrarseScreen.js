@@ -9,18 +9,46 @@ import Constants from "expo-constants";
 import Boton from "../components/Boton.jsx";
 import Titulo from "../components/Titulo.jsx";
 import EspacioVacio from "../components/EspacioVacio.jsx";
-// import DatePicker from "react-native-datepicker";
+import { Dropdown } from 'react-native-element-dropdown';
 
 const RegistrarseScreen = () => {
+
+  let host = "A-PHZ2-CIDI-012";
+  let port = "5000";
+
+  const [limitaciones, SetLimitaciones] = useState([]);
+  const [botonesClickeados, setBotonesClickeados] = useState([]);
+
+  const obtenerLimitaciones = () => {
+    axios
+      .get(`http://${host}:${port}/api/limitaciones/`)
+      .then((result) => {
+        const limitaciones = result.data;
+
+        limitaciones.map((Limitacion) => {
+          const { idLimitacion, limitacion } = Limitacion;
+
+          console.log(`
+          ID: ${idLimitacion}
+          Nombre: ${limitacion}
+        `);
+
+          SetLimitaciones(limitaciones);
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    obtenerLimitaciones();
+  }, []);
+
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
   const [correo, setCorreo] = useState("");
   const [contrasena, setContrasena] = useState("");
-  const [fecha, setFecha] = useState(new Date());
-
-  /* const handleDateChange = (newDate) => {
-    setDate(newDate);
-  }; */
 
   return (
     <View style={styles.container}>
@@ -56,18 +84,7 @@ const RegistrarseScreen = () => {
         value={contrasena}
       />
 
-      {/* <DatePicker
-        style={{ width: 200 }}
-        date={date}
-        mode="datetime"
-        placeholder="Seleccionar fecha y hora"
-        format="YYYY-MM-DD HH:mm"
-        minDate="2021-01-01"
-        maxDate="2023-12-31"
-        confirmBtnText="Confirmar"
-        cancelBtnText="Cancelar"
-        onDateChange={handleDateChange}
-      /> */}
+      
       
       <EspacioVacio altura={35}/>
 

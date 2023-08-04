@@ -6,10 +6,11 @@ import axios from "axios";
 import EspacioVacio from "../components/EspacioVacio.jsx";
 
 const CondicionScreen = () => {
-  let host = "A-PHZ2-CIDI-011";
+  let host = "A-PHZ2-CIDI-012";
   let port = "5000";
 
   const [limitaciones, SetLimitaciones] = useState([]);
+  const [botonesClickeados, setBotonesClickeados] = useState([]);
 
   const obtenerLimitaciones = () => {
     axios
@@ -44,29 +45,73 @@ const CondicionScreen = () => {
       <EspacioVacio altura={15} />
 
       {limitaciones.length > 0
-        ? limitaciones.map((limitacion) => (
-            <TouchableOpacity style={styles.boton}>
-              <Text style={styles.textoBoton}>{limitacion.limitacion}</Text>
-            </TouchableOpacity>
-          ))
-        : 
+        ? limitaciones.map((limitacion, index) => (
+          <TouchableOpacity
+            style={botonesClickeados[index] ? styles.botonClickeado : styles.boton}
+            key={index}
+            onPress={() => {
+              const nuevosBotonesClickeados = [...botonesClickeados];
+              nuevosBotonesClickeados[index] = true;
+              setBotonesClickeados(nuevosBotonesClickeados);
+            }}>
+            <Text style={styles.textoBoton}>{limitacion.limitacion}</Text>
+          </TouchableOpacity>
+        ))
+        :
         <TouchableOpacity style={styles.boton}>
-        <Text style={styles.textoBoton}>Cargando</Text>
+          <Text style={styles.textoBoton}>Cargando</Text>
         </TouchableOpacity>}
+
+
+      <TouchableOpacity style={styles.botonFlecha}>
+        <Text style={styles.textoFlecha}>{'>'}</Text>
+      </TouchableOpacity>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  boton: {
-    elevation: 8,
+  botonClickeado: {
     borderRadius: 20,
     paddingVertical: 20,
     paddingHorizontal: 16,
     backgroundColor: "#119B48",
     marginBottom: 20,
     width: 200,
-    height: 90
+    height: 90,
+    borderWidth: 3.3,
+    borderColor: "#00000"
+  },
+
+  botonFlecha: {
+    borderRadius: 20,
+    backgroundColor: "#119B48",
+    width: 70,
+    height: 80,
+    position: "absolute",
+    bottom: 20,
+    left: 163.5,
+    right: 0,
+
+  },
+
+  textoFlecha: {
+    color: "#fff",
+    fontWeight: "bold",
+    alignSelf: "center",
+    fontFamily: "Inter Regular",
+    fontSize: 50,
+  },
+
+  boton: {
+    borderRadius: 20,
+    paddingVertical: 30,
+    paddingHorizontal: 16,
+    backgroundColor: "#119B48",
+    marginBottom: 20,
+    width: 200,
+    height: 90,
+    alignItems: "center",
   },
 
   textoBoton: {
@@ -74,7 +119,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     alignSelf: "center",
     fontFamily: "Inter Regular",
-    fontSize: 30,
+    fontSize: 25,
   },
 
   text: {

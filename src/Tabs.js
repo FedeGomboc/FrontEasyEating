@@ -2,6 +2,7 @@ import { View, Text } from "react-native";
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import LoginStackScreen from "./stacks/LoginStackScreen";
+import PerfilStackScreen from "./stacks/PerfilStackScreen";
 import { NavigationContainer } from "@react-navigation/native";
 
 const Tabs = () => {
@@ -11,6 +12,7 @@ const Tabs = () => {
     <NavigationContainer>
       <Tab.Navigator screenOptions={{ headerShown: false }}>
         <Tab.Screen name="LoginMenu" component={LoginStackScreen} />
+        <Tab.Screen name="PerfilMenu" component={PerfilStackScreen} />
       </Tab.Navigator>
     </NavigationContainer>
   );
