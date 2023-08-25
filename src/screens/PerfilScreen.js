@@ -10,7 +10,7 @@ import { useFonts } from "expo-font";
 
 const PerfilScreen = () => {
   return (
-    <View>Hola</View>
+    <View><Text>Hola</Text></View>
   )
 }
 

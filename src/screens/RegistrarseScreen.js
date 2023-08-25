@@ -1,10 +1,11 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   StyleSheet,
   View,
   TextInput,
 } from "react-native";
+import axios from "axios";
 import Constants from "expo-constants";
 import Boton from "../components/Boton.jsx";
 import Titulo from "../components/Titulo.jsx";
@@ -13,7 +14,7 @@ import { Dropdown } from 'react-native-element-dropdown';
 
 const RegistrarseScreen = () => {
 
-  let host = "A-PHZ2-CIDI-012";
+  let host = "A-PHZ2-CIDI-011";
   let port = "5000";
 
   const [limitaciones, SetLimitaciones] = useState([]);

@@ -6,7 +6,7 @@ import axios from "axios";
 import EspacioVacio from "../components/EspacioVacio.jsx";
 
 const CondicionScreen = () => {
-  let host = "A-PHZ2-CIDI-012";
+  let host = "A-PHZ2-CIDI-011";
   let port = "5000";
 
   const [limitaciones, SetLimitaciones] = useState([]);
