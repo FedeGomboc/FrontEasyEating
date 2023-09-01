@@ -4,11 +4,11 @@ import {
   Text,
   View,
   Image,
+  Button,
 } from "react-native";
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import Constants from "expo-constants";
 import { useState, useEffect } from "react";
-
 
 const EscanerScreen = () => {
     const [hasPermission, setHasPermission] = useState(null);
@@ -25,7 +25,7 @@ const EscanerScreen = () => {
   
     const handleBarCodeScanned = ({ type, data }) => {
       setScanned(true);
-      alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+      alert(`Codigo del codigo de barra: ${data}`);
     };
   
     if (hasPermission === null) {
@@ -41,7 +41,7 @@ const EscanerScreen = () => {
           onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
           style={StyleSheet.absoluteFillObject}
         />
-        {scanned && <Button title={'Tap to Scan Again'} onPress={() => setScanned(false)} />}
+        {scanned && <Button title={'Toca para escanear de vuelta'} onPress={() => setScanned(false)} />}
       </View>
     );
   }
