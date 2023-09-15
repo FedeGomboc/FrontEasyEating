@@ -11,6 +11,7 @@ import Constants from "expo-constants";
 import { useFonts } from "expo-font";
 import Boton from "../components/Boton.jsx";
 import Titulo from "../components/Titulo.jsx";
+import { useNavigation } from "@react-navigation/native";
 
 const InicioSesionScreen = () => {
   const [correo, setCorreo] = useState("");
@@ -23,28 +24,29 @@ const InicioSesionScreen = () => {
     return null;
   }
 
+  const navigation = useNavigation()
+
+  /* const Login = () => {
+    if (correo.toLowerCase() == "federico" && contrasena.toLowerCase() == "gomboc"){
+      navigation.navigate("Perfil")
+    }
+    else {
+      alert("Usuario o contraseña incorrectos")
+    } 
+  }*/
+
   return (
     <View style={styles.container}>
       <Titulo texto1="Easy" texto2="Eating" />
       <Text> </Text>
 
-      <TextInput
-        style={styles.input}
-        placeholder="CORREO ELECTRÓNICO"
-        onChangeText={setCorreo}
-        value={correo}
-      />
+      <TextInput style={styles.input} placeholder="CORREO ELECTRÓNICO" onChangeText={setCorreo} value={correo}/>
 
-      <TextInput
-        style={styles.input}
-        placeholder="CONTRASEÑA"
-        onChangeText={setContrasena}
-        value={contrasena}
-      />
+      <TextInput style={styles.input} placeholder="CONTRASEÑA" onChangeText={setContrasena} value={contrasena}/>
 
       <Text> </Text>
 
-      <Boton green contenido="INICIAR SESIÓN" />
+      <Boton green contenido="INICIAR SESIÓN" /* ruta="Perfil" *//>
 
       <Text> </Text>
 

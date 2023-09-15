@@ -1,14 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useState } from "react";
 import {
   StyleSheet,
   Text,
   View,
   Image,
+  TouchableOpacity
 } from "react-native";
 import Constants from "expo-constants";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
+import axios from "axios";
 
 function MapaScreen() {
+  const [restaurantes, SetRestaurantes] = useState([]);
+
+  let host = "A-PHZ2-CIDI-011";
+  let port = "5000";
+
   const MARKERS_DATA = [
     {
       id: '1',
@@ -44,6 +52,32 @@ function MapaScreen() {
     },
   ];
 
+  const obtenerRestaurantes = () => {
+    axios
+      .get(`http://${host}:${port}/api/restaurantes/`)
+      .then((result) => {
+        const restaurantes = result.data;
+
+        restaurantes.map((Restaurante) => {
+          const { idRestaurante, nombre, latitud, longitud } = Restaurante;
+
+          console.log(`
+          ID: ${idRestaurante}
+          Nombre: ${nombre}
+        `);
+
+          SetRestaurantes(restaurantes)
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  useEffect(() => {
+    obtenerRestaurantes();
+  }, []);
+
   return (
     <View style={styles.container}>
       <MapView
@@ -56,9 +90,17 @@ function MapaScreen() {
           longitudeDelta: 0.003
         }}
         mapType="standard">
-        {MARKERS_DATA.map((marker) => (
+
+        {restaurantes.length > 0
+            ? restaurantes.map((restaurante, index) => (
+              <Marker coordinate={{ latitude: restaurante.latitud, longitude: restaurante.longitud }}></Marker>
+            ))
+            :
+            console.log("error")}
+
+        {/* {MARKERS_DATA.map((marker) => (
           <Marker key={marker.id} coordinate={{ latitude: marker.latitude, longitude: marker.longitude }}></Marker>
-        ))}
+        ))} */}
       </MapView>
     </View>
   )

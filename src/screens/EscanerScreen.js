@@ -9,6 +9,7 @@ import {
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import Constants from "expo-constants";
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 const EscanerScreen = () => {
     const [hasPermission, setHasPermission] = useState(null);
@@ -34,13 +35,15 @@ const EscanerScreen = () => {
     if (hasPermission === false) {
       return <Text>No access to camera</Text>;
     }
+
+    const obtenerDatos = () => {
+      axios
+        .get()
+    }
   
     return (
       <View style={styles.container}>
-        <BarCodeScanner
-          onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-          style={StyleSheet.absoluteFillObject}
-        />
+        <BarCodeScanner onBarCodeScanned={scanned ? undefined : handleBarCodeScanned} style={StyleSheet.absoluteFillObject}/>
         {scanned && <Button title={'Toca para escanear de vuelta'} onPress={() => setScanned(false)} />}
       </View>
     );
