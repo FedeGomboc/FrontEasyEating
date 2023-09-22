@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  Button,
-} from "react-native";
+import {StyleSheet, Text, View, Image, Button} from "react-native";
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import Constants from "expo-constants";
 import { useState, useEffect } from "react";
@@ -14,12 +8,35 @@ import axios from "axios";
 const EscanerScreen = () => {
     const [hasPermission, setHasPermission] = useState(null);
     const [scanned, setScanned] = useState(false);
+
+    let host = "A-PHZ2-CIDI-011";
+    let port = "5000";
+
+    const [valores, setValores] = useState([])
+
+    const obtenerDatos = ({data}) => {
+      axios
+        .get(`http://${host}:${port}/api/productos/${data}`)
+        .then((result) => {
+          const valores = result.data
+
+          valores.map((Valor) => {
+            const { idProducto, barCode, nombre, proteinas, carbohidratos, grasas, grasasSaturadas, calorias} = Valor
+
+            setValores(valores)
+          })
+        })
+        .catch((error) => {
+          console.log(error)
+        }) 
+    }
   
     useEffect(() => {
       const getBarCodeScannerPermissions = async () => {
         const { status } = await BarCodeScanner.requestPermissionsAsync();
         setHasPermission(status === 'granted');
       };
+      
   
       getBarCodeScannerPermissions();
     }, []);
@@ -35,16 +52,11 @@ const EscanerScreen = () => {
     if (hasPermission === false) {
       return <Text>No access to camera</Text>;
     }
-
-    const obtenerDatos = () => {
-      axios
-        .get()
-    }
   
     return (
       <View style={styles.container}>
         <BarCodeScanner onBarCodeScanned={scanned ? undefined : handleBarCodeScanned} style={StyleSheet.absoluteFillObject}/>
-        {scanned && <Button title={'Toca para escanear de vuelta'} onPress={() => setScanned(false)} />}
+        {scanned && <Button title={'Toca para escanear de vuelta'} onPress={() => setScanned(false)}/>}
       </View>
     );
   }

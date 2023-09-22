@@ -93,7 +93,7 @@ function MapaScreen() {
 
         {restaurantes.length > 0
             ? restaurantes.map((restaurante, index) => (
-              <Marker coordinate={{ latitude: restaurante.latitud, longitude: restaurante.longitud }}></Marker>
+              <Marker key={index} coordinate={{ latitude: restaurante.latitud, longitude: restaurante.longitud }}></Marker>
             ))
             :
             console.log("error")}

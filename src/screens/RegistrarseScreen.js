@@ -14,38 +14,6 @@ import { Dropdown } from 'react-native-element-dropdown';
 
 const RegistrarseScreen = () => {
 
-  let host = "A-PHZ2-CIDI-011";
-  let port = "5000";
-
-  const [limitaciones, SetLimitaciones] = useState([]);
-  const [botonesClickeados, setBotonesClickeados] = useState([]);
-
-  const obtenerLimitaciones = () => {
-    axios
-      .get(`http://${host}:${port}/api/limitaciones/`)
-      .then((result) => {
-        const limitaciones = result.data;
-
-        limitaciones.map((Limitacion) => {
-          const { idLimitacion, limitacion } = Limitacion;
-
-          console.log(`
-          ID: ${idLimitacion}
-          Nombre: ${limitacion}
-        `);
-
-          SetLimitaciones(limitaciones);
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  useEffect(() => {
-    obtenerLimitaciones();
-  }, []);
-
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
   const [correo, setCorreo] = useState("");
