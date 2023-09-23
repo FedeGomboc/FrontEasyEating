@@ -4,6 +4,8 @@ import { BarCodeScanner } from 'expo-barcode-scanner';
 import Constants from "expo-constants";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigation } from "@react-navigation/native";
+
 
 const EscanerScreen = () => {
     const [hasPermission, setHasPermission] = useState(null);
@@ -11,6 +13,8 @@ const EscanerScreen = () => {
 
     let host = "A-PHZ2-CIDI-011";
     let port = "5000";
+
+    const navigation = useNavigation()
 
     const [valores, setValores] = useState([])
 

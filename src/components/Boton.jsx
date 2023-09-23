@@ -7,7 +7,7 @@ import {
 import { useFonts } from "expo-font";
 import { useNavigation } from "@react-navigation/native";
 
-const Boton = ({green, mustard,  contenido, ruta}) => {
+const Boton = ({green, mustard,  contenido, onPress}) => {
 
   const [fuentesCargadas] = useFonts({
     "Inter Regular": require("../assets/fonts/Inter-Regular.ttf"),
@@ -22,10 +22,16 @@ const Boton = ({green, mustard,  contenido, ruta}) => {
     mustard && styles.mustard
   ]
 
+  const handleOnPress = () => {
+    if (typeof onPress === 'function'){
+      onPress()
+    }
+  }
+
   const navigation = useNavigation()
 
   return (
-    <TouchableOpacity style={botonStyles} onPress={ () => navigation.navigate(ruta) }>
+    <TouchableOpacity style={botonStyles} onPress={handleOnPress}>
       <Text style={styles.text}>{contenido}</Text>
     </TouchableOpacity>
   )

@@ -6,6 +6,7 @@ import {
   View,
   TouchableOpacity,
   TextInput,
+  onPress
 } from "react-native";
 import Constants from "expo-constants";
 import { useFonts } from "expo-font";
@@ -26,14 +27,16 @@ const InicioSesionScreen = () => {
 
   const navigation = useNavigation()
 
-  /* const Login = () => {
+  const Login = () => {
     if (correo.toLowerCase() == "federico" && contrasena.toLowerCase() == "gomboc"){
-      navigation.navigate("Perfil")
+      navigation.navigate("PerfilStack", {
+        screen: "Perfil",
+      });
     }
     else {
       alert("Usuario o contraseña incorrectos")
     } 
-  }*/
+  }
 
   return (
     <View style={styles.container}>
@@ -46,7 +49,7 @@ const InicioSesionScreen = () => {
 
       <Text> </Text>
 
-      <Boton green contenido="INICIAR SESIÓN" /* ruta="Perfil" *//>
+      <Boton green contenido="INICIAR SESIÓN" onPress={Login}/>
 
       <Text> </Text>
 
@@ -58,7 +61,7 @@ const InicioSesionScreen = () => {
 
       <Text style={styles.noCuenta}>¿Todavía no tenés cuenta?</Text>
       <Text> </Text>
-      <Boton mustard contenido="CREAR CUENTA" ruta="Registrarse"/>
+      <Boton mustard contenido="CREAR CUENTA" onPress={() => navigation.navigate("Registrarse")}/>
 
       </View>
 

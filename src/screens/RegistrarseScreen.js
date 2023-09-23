@@ -11,6 +11,8 @@ import Boton from "../components/Boton.jsx";
 import Titulo from "../components/Titulo.jsx";
 import EspacioVacio from "../components/EspacioVacio.jsx";
 import { Dropdown } from 'react-native-element-dropdown';
+import { useNavigation } from "@react-navigation/native";
+
 
 const RegistrarseScreen = () => {
 
@@ -18,6 +20,8 @@ const RegistrarseScreen = () => {
   const [apellido, setApellido] = useState("");
   const [correo, setCorreo] = useState("");
   const [contrasena, setContrasena] = useState("");
+
+  const navigation = useNavigation()
 
   return (
     <View style={styles.container}>
@@ -57,7 +61,7 @@ const RegistrarseScreen = () => {
       
       <EspacioVacio altura={35}/>
 
-      <Boton green contenido="CREAR CUENTA" ruta="Condicion"/>
+      <Boton green contenido="CREAR CUENTA" onPress={() => navigation.navigate("Condicion")}/>
     </View>
   );
 };

@@ -1,14 +1,10 @@
 import React from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-} from "react-native";
+import { StyleSheet, Text, View, Image, onPress} from "react-native";
 import Constants from "expo-constants";
 import { useFonts } from "expo-font";
 import Boton from "../components/Boton.jsx";
 import Titulo from "../components/Titulo.jsx";
+import { useNavigation } from "@react-navigation/native";
 
 const LoginScreen = () => {
   const [fuentesCargadas] = useFonts({
@@ -18,20 +14,19 @@ const LoginScreen = () => {
     return null;
   }
 
+  const navigation = useNavigation()
+
   return (
     <View style={styles.container}>
-      <Image
-        style={styles.imagen}
-        source={require("../assets/icons/logo.png")}
-      />
+      <Image style={styles.imagen} source={require("../assets/icons/logo.png")}/>
 
       <Titulo texto1="Easy" texto2="Eating" />
 
       <Text style={styles.subtitulo}>Escaneá, conocé, disfrutá</Text>
 
-      <Boton green contenido="Iniciar Sesión" ruta="Inicio Sesión" />
+      <Boton green contenido="Iniciar Sesión" onPress={() => navigation.navigate("Inicio Sesión")}/>
       <Text> </Text>
-      <Boton mustard contenido="Registrarse" ruta="Registrarse" />
+      <Boton mustard contenido="Registrarse" onPress={() => navigation.navigate("Registrarse")}/>
     </View>
   );
 };

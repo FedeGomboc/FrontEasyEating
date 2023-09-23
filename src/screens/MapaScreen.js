@@ -10,9 +10,13 @@ import {
 import Constants from "expo-constants";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import axios from "axios";
+import { useNavigation } from "@react-navigation/native";
+
 
 function MapaScreen() {
   const [restaurantes, SetRestaurantes] = useState([]);
+
+  const navigation = useNavigation()
 
   let host = "A-PHZ2-CIDI-011";
   let port = "5000";
