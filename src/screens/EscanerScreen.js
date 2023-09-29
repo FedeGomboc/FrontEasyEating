@@ -6,15 +6,12 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 
-
 const EscanerScreen = () => {
     const [hasPermission, setHasPermission] = useState(null);
     const [scanned, setScanned] = useState(false);
 
     let host = "A-PHZ2-CIDI-011";
     let port = "5000";
-
-    const navigation = useNavigation()
 
     const [valores, setValores] = useState([])
 
@@ -35,6 +32,10 @@ const EscanerScreen = () => {
         }) 
     }
   
+    useEffect(() => {
+      obtenerDatos();
+    }, []);
+
     useEffect(() => {
       const getBarCodeScannerPermissions = async () => {
         const { status } = await BarCodeScanner.requestPermissionsAsync();
