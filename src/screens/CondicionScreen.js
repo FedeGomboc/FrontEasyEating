@@ -6,7 +6,7 @@ import axios from "axios";
 import EspacioVacio from "../components/EspacioVacio.jsx";
 
 const CondicionScreen = () => {
-  let host = "A-PHZ2-CIDI-011";
+  let host = "localhost";
   let port = "5000";
 
   const [limitaciones, SetLimitaciones] = useState([]);
@@ -127,7 +127,6 @@ const styles = StyleSheet.create({
     fontSize: 35,
     paddingBottom: 5,
     textAlign: "center",
-    fontFamily: "Fredoka SemiBold",
   },
 
   container: {

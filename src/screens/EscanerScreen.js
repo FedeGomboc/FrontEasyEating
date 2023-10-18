@@ -15,7 +15,7 @@ const EscanerScreen = () => {
 
     const [valores, setValores] = useState([])
 
-    const obtenerDatos = ({data}) => {
+   /*  const obtenerDatos = ({data}) => {
       axios
         .get(`http://${host}:${port}/api/productos/${data}`)
         .then((result) => {
@@ -34,7 +34,7 @@ const EscanerScreen = () => {
   
     useEffect(() => {
       obtenerDatos();
-    }, []);
+    }, []); */
 
     useEffect(() => {
       const getBarCodeScannerPermissions = async () => {
