@@ -21,44 +21,9 @@ function MapaScreen() {
   let host = "A-PHZ2-CIDI-011";
   let port = "5000";
 
-  const MARKERS_DATA = [
-    {
-      id: '1',
-      latitude: -34.60853837294786,
-      longitude: -58.4306551602909,
-      color: '#2F3136',
-      name: 'Green Deli',
-      direction: 'Av. Díaz Vélez 4501',
-    },
-    {
-      id: '2',
-      latitude: -34.61335019300495,
-      longitude: -58.43798387809736,
-      color: '#A3EAD8',
-      name: 'Cocelia',
-      direction: 'Av. Acoyte 449',
-    },
-    {
-      id: '3',
-      latitude: -34.61172463990566,
-      longitude: -58.422167399999985,
-      color: '#E990BB',
-      name: 'Los Orientales',
-      direction: 'Av. Rivadavia 3981',
-    },
-    {
-      id: '4',
-      latitude: -34.611538672314765,
-      longitude: -58.4303597451144,
-      color: '#EFD080',
-      name: 'Gra-Hu',
-      direction: 'Río de Janeiro 320',
-    },
-  ];
-
   const obtenerRestaurantes = () => {
     axios
-      .get(`http://${host}:${port}/api/restaurantes/`)
+      .get(`https://backendeasyeating.onrender.com/api/restaurantes`)
       .then((result) => {
         const restaurantes = result.data;
 
@@ -69,7 +34,6 @@ function MapaScreen() {
           ID: ${idRestaurante}
           Nombre: ${nombre}
         `);
-
           SetRestaurantes(restaurantes)
         });
       })
@@ -97,14 +61,10 @@ function MapaScreen() {
 
         {restaurantes.length > 0
             ? restaurantes.map((restaurante, index) => (
-              <Marker key={index} coordinate={{ latitude: restaurante.latitud, longitude: restaurante.longitud }}></Marker>
+              <Marker key={index} coordinate={{ latitude: parseFloat(restaurante.latitud), longitude: parseFloat(restaurante.longitud) }}></Marker>
             ))
             :
             console.log("error")}
-
-        {/* {MARKERS_DATA.map((marker) => (
-          <Marker key={marker.id} coordinate={{ latitude: marker.latitude, longitude: marker.longitude }}></Marker>
-        ))} */}
       </MapView>
     </View>
   )

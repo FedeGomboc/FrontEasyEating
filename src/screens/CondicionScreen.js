@@ -14,7 +14,7 @@ const CondicionScreen = () => {
 
   const obtenerLimitaciones = () => {
     axios
-      .get(`http://${host}:${port}/api/limitaciones/`)
+      .get(`https://backendeasyeating.render/api/limitaciones/`)
       .then((result) => {
         const limitaciones = result.data;
 

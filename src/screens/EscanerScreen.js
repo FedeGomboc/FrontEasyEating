@@ -15,39 +15,43 @@ const EscanerScreen = () => {
 
     const [valores, setValores] = useState([])
 
-   /*  const obtenerDatos = ({data}) => {
+    const obtenerDatos = ({data}) => {
       axios
-        .get(`http://${host}:${port}/api/productos/${data}`)
+        .get(`https://backendeasyeating.render/api/productos/${data}`)
         .then((result) => {
           const valores = result.data
 
           valores.map((Valor) => {
             const { idProducto, barCode, nombre, proteinas, carbohidratos, grasas, grasasSaturadas, calorias} = Valor
-
-            setValores(valores)
           })
+          setValores(valores)
         })
         .catch((error) => {
           console.log(error)
         }) 
     }
   
-    useEffect(() => {
+    /* useEffect(() => {
       obtenerDatos();
     }, []); */
+
+  useEffect(() => {
+    if (valores.length > 0) {
+      alert(`Código del código de barras: ${valores[0].barCode}, ${valores[0].nombre}`);
+    }
+  }, [valores]);
 
     useEffect(() => {
       const getBarCodeScannerPermissions = async () => {
         const { status } = await BarCodeScanner.requestPermissionsAsync();
         setHasPermission(status === 'granted');
       };
-      
-  
       getBarCodeScannerPermissions();
     }, []);
   
     const handleBarCodeScanned = ({ type, data }) => {
       setScanned(true);
+      obtenerDatos({data})
       alert(`Codigo del codigo de barra: ${data}`);
     };
   
