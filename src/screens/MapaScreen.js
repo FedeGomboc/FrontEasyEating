@@ -41,7 +41,7 @@ function MapaScreen() {
 <Modal
         animationType="slide"
         transparent={true}
-        visible={modalVisible}
+        visible={showModal}
         onRequestClose={() => {
           Alert.alert('Modal has been closed.');
           setShowModal(!showModal);
