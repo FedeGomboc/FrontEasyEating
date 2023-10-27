@@ -1,25 +1,14 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TouchableOpacity
-} from "react-native";
-import Constants from "expo-constants";
+import { StyleSheet, Text, View, Image, TouchableOpacity, Modal, Pressable} from "react-native";
+import Constants from "expo-constants"; 
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 
-
 function MapaScreen() {
   const [restaurantes, SetRestaurantes] = useState([]);
-
-  const navigation = useNavigation()
-
-  let host = "A-PHZ2-CIDI-011";
-  let port = "5000";
+  const [showModal, setShowModal] = useState(false)
 
   const obtenerRestaurantes = () => {
     axios
@@ -48,20 +37,40 @@ function MapaScreen() {
 
   return (
     <View style={styles.container}>
-      <MapView
-        style={{ height: "100%", width: "100%" }}
-        provider={PROVIDER_GOOGLE}
+
+<Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert('Modal has been closed.');
+          setShowModal(!showModal);
+        }}>
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalText}>Hello World!</Text>
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => setShowModal(!showModal)}>
+              <Text style={styles.textStyle}>Hide Modal</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
+
+      <MapView style={{ height: "100%", width: "100%" }} provider={PROVIDER_GOOGLE}
         initialRegion={{
           latitude: -34.60853837294786,
           longitude: -58.4306551602909,
           latitudeDelta: 0.003,
           longitudeDelta: 0.003
-        }}
-        mapType="standard">
+        }} mapType="standard">
 
         {restaurantes.length > 0
             ? restaurantes.map((restaurante, index) => (
+              <TouchableOpacity onPress={() => setShowModal(true)}>
               <Marker key={index} coordinate={{ latitude: parseFloat(restaurante.latitud), longitude: parseFloat(restaurante.longitud) }}></Marker>
+              </TouchableOpacity>
             ))
             :
             console.log("error")}
@@ -77,6 +86,47 @@ const styles = StyleSheet.create({
     marginTop: Constants.statusBarHeight,
     backgroundColor: "#FFFAF3",
     flex: 1,
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: '#F194FF',
+  },
+  buttonClose: {
+    backgroundColor: '#2196F3',
+  },
+  textStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: 'center',
   },
 });
 

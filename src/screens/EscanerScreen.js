@@ -38,7 +38,7 @@ const EscanerScreen = () => {
   useEffect(() => {
     if (valores.length > 0) {
       alert(`Código del código de barras: ${valores[0].barCode}, ${valores[0].nombre}`);
-    }
+    } 
   }, [valores]);
 
     useEffect(() => {
