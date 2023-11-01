@@ -1,14 +1,23 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { StyleSheet, Text, View, Image, TouchableOpacity, Modal, Pressable} from "react-native";
-import Constants from "expo-constants"; 
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  Modal,
+  Pressable,
+} from "react-native";
+import Constants from "expo-constants";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 
 function MapaScreen() {
   const [restaurantes, SetRestaurantes] = useState([]);
-  const [showModal, setShowModal] = useState(false)
+  const [modalVisible, setModalVisible] = useState(false);
+  const [restauranteSeleccionado, setRestauranteSeleccionado] = useState(null);
 
   const obtenerRestaurantes = () => {
     axios
@@ -23,13 +32,13 @@ function MapaScreen() {
           ID: ${idRestaurante}
           Nombre: ${nombre}
         `);
-          SetRestaurantes(restaurantes)
+          SetRestaurantes(restaurantes);
         });
       })
       .catch((error) => {
         console.log(error);
       });
-  }
+  };
 
   useEffect(() => {
     obtenerRestaurantes();
@@ -37,46 +46,38 @@ function MapaScreen() {
 
   return (
     <View style={styles.container}>
-
-<Modal
-        animationType="slide"
-        transparent={true}
-        visible={showModal}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-          setShowModal(!showModal);
-        }}>
+      <Modal animationType="slide" transparent={true} visible={modalVisible} onRequestClose={() => {setModalVisible(!modalVisible);}}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Text style={styles.modalText}>Hello World!</Text>
-            <Pressable
-              style={[styles.button, styles.buttonClose]}
-              onPress={() => setShowModal(!showModal)}>
+          {restauranteSeleccionado && <Text style={styles.modalText}>Restaurante {restauranteSeleccionado.nombre}</Text>}
+            <Pressable style={[styles.button, styles.buttonClose]} onPress={() => setModalVisible(!modalVisible)}>
               <Text style={styles.textStyle}>Hide Modal</Text>
             </Pressable>
           </View>
         </View>
       </Modal>
 
-      <MapView style={{ height: "100%", width: "100%" }} provider={PROVIDER_GOOGLE}
+      <MapView
+        style={{ height: "100%", width: "100%" }}
+        provider={PROVIDER_GOOGLE}
         initialRegion={{
           latitude: -34.60853837294786,
           longitude: -58.4306551602909,
           latitudeDelta: 0.003,
-          longitudeDelta: 0.003
-        }} mapType="standard">
-
+          longitudeDelta: 0.003,
+        }}
+        mapType="standard"
+      >
         {restaurantes.length > 0
-            ? restaurantes.map((restaurante, index) => (
-              <TouchableOpacity onPress={() => setShowModal(true)}>
-              <Marker key={index} coordinate={{ latitude: parseFloat(restaurante.latitud), longitude: parseFloat(restaurante.longitud) }}></Marker>
+          ? restaurantes.map((restaurante, index) => (
+              <TouchableOpacity>
+                <Marker key={index} coordinate={{latitude: parseFloat(restaurante.latitud),longitude: parseFloat(restaurante.longitud)}} onPress={() => {setRestauranteSeleccionado(restaurante); setModalVisible(true)} }></Marker>
               </TouchableOpacity>
             ))
-            :
-            console.log("error")}
+          : console.log("error")}
       </MapView>
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -89,17 +90,17 @@ const styles = StyleSheet.create({
   },
   centeredView: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     marginTop: 22,
   },
   modalView: {
     margin: 20,
-    backgroundColor: 'white',
+    backgroundColor: "white",
     borderRadius: 20,
     padding: 35,
-    alignItems: 'center',
-    shadowColor: '#000',
+    alignItems: "center",
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 2,
@@ -114,20 +115,20 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   buttonOpen: {
-    backgroundColor: '#F194FF',
+    backgroundColor: "#F194FF",
   },
   buttonClose: {
-    backgroundColor: '#2196F3',
+    backgroundColor: "#2196F3",
   },
   textStyle: {
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
   },
   modalText: {
     marginBottom: 15,
-    textAlign: 'center',
+    textAlign: "center",
   },
 });
 
-export default MapaScreen
+export default MapaScreen;

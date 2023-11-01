@@ -35,11 +35,11 @@ const EscanerScreen = () => {
       obtenerDatos();
     }, []); */
 
-  useEffect(() => {
+  /* useEffect(() => {
     if (valores.length > 0) {
       alert(`Código del código de barras: ${valores[0].barCode}, ${valores[0].nombre}`);
     } 
-  }, [valores]);
+  }, [valores]); */
 
     useEffect(() => {
       const getBarCodeScannerPermissions = async () => {
@@ -52,7 +52,12 @@ const EscanerScreen = () => {
     const handleBarCodeScanned = ({ type, data }) => {
       setScanned(true);
       obtenerDatos({data})
-      alert(`Codigo del codigo de barra: ${data}`);
+      {valores.length > 0
+        ? valores.map((valor, index) => (
+/*           alert(`Codigo del codigo de barra: ${data}, ${valor.nombre}`)
+ */          console.log(valor.nombre)
+          ))
+        : console.log("error")}
     };
   
     if (hasPermission === null) {
