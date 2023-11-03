@@ -5,9 +5,8 @@ import {
   Text,
   View,
   Image,
-  TouchableOpacity,
   Modal,
-  Pressable,
+  TouchableOpacity,
 } from "react-native";
 import Constants from "expo-constants";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
@@ -26,12 +25,7 @@ function MapaScreen() {
         const restaurantes = result.data;
 
         restaurantes.map((Restaurante) => {
-          const { idRestaurante, nombre, latitud, longitud } = Restaurante;
-
-          console.log(`
-          ID: ${idRestaurante}
-          Nombre: ${nombre}
-        `);
+          const { idRestaurante, nombre, latitud, longitud, direccion, horario, telefono, foto } = Restaurante;
           SetRestaurantes(restaurantes);
         });
       })
@@ -43,16 +37,29 @@ function MapaScreen() {
   useEffect(() => {
     obtenerRestaurantes();
   }, []);
-
+  
+  const imgExterna = {uri: 'https://legacy.reactjs.org/logo-og.png'};
+  const imgLocal   = require('./../assets/icons/logo.png');
   return (
     <View style={styles.container}>
       <Modal animationType="slide" transparent={true} visible={modalVisible} onRequestClose={() => {setModalVisible(!modalVisible);}}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-          {restauranteSeleccionado && <Text style={styles.modalText}>Restaurante {restauranteSeleccionado.nombre}</Text>}
-            <Pressable style={[styles.button, styles.buttonClose]} onPress={() => setModalVisible(!modalVisible)}>
+          {restauranteSeleccionado && 
+          <>
+          <Text style={styles.modalText}>Nombre: {restauranteSeleccionado.nombre}</Text>
+          <Image source={imgLocal} style={{ width: "100%", height: "50%",    justifyContent: 'center'}}/>
+          <Text style={styles.modalText}>Direccion: {restauranteSeleccionado.direccion}</Text>
+          <Text style={styles.modalText}>Horario: {restauranteSeleccionado.horario}</Text>
+          <Text style={styles.modalText}>Telefono: {restauranteSeleccionado.telefono}</Text>
+          <Image source={imgExterna} style={{ width: "100%", height: "50%",flex: 1,    justifyContent: 'center'}}/>
+          
+          {console.log("'" + restauranteSeleccionado.foto + "'")}
+          </>
+          }
+            <TouchableOpacity style={[styles.button, styles.buttonClose]} onPress={() => setModalVisible(!modalVisible)}>
               <Text style={styles.textStyle}>Hide Modal</Text>
-            </Pressable>
+            </TouchableOpacity>
           </View>
         </View>
       </Modal>

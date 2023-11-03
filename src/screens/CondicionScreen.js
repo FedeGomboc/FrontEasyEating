@@ -9,7 +9,7 @@ const CondicionScreen = () => {
   let host = "localhost";
   let port = "5000";
 
-  const [limitaciones, SetLimitaciones] = useState([]);
+  const [limitaciones, setLimitaciones] = useState([]);
   const [botonesClickeados, setBotonesClickeados] = useState([]);
 
   const obtenerLimitaciones = () => {
@@ -26,7 +26,7 @@ const CondicionScreen = () => {
           Nombre: ${limitacion}
         `);
 
-          SetLimitaciones(limitaciones);
+          setLimitaciones(limitaciones);
         });
       })
       .catch((error) => {

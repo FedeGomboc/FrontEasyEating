@@ -15,7 +15,7 @@ const Tabs = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator screenOptions={{ headerShown: false }}>
-        <Tab.Screen name="LoginMenu" component={LoginStackScreen} />
+        <Tab.Screen name="LoginMenu" component={LoginStackScreen}/>
         <Tab.Screen name="MapaMenu" component={MapaStackScreen} options={{tabBarLabel: 'Mapa', tabBarIcon: () => (<FontAwesome5 name="map-marked-alt" size={24} color="black"/>)}}/>
         <Tab.Screen name="EscanerMenu" component={EscanerStackScreen} options={{tabBarLabel: 'Escaner', tabBarIcon: () => (<MaterialCommunityIcons name="barcode-scan" size={24} color="black" />)}}/>
         <Tab.Screen name="PerfilMenu" component={PerfilStackScreen} options={{tabBarLabel: 'Perfil', tabBarIcon: () => (<Ionicons name="person" size={24} color="black" />)}}/>

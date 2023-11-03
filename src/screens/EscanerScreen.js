@@ -54,9 +54,9 @@ const EscanerScreen = () => {
       obtenerDatos({data})
       {valores.length > 0
         ? valores.map((valor, index) => (
-/*           alert(`Codigo del codigo de barra: ${data}, ${valor.nombre}`)
- */          console.log(valor.nombre)
-          ))
+          alert(`Codigo del codigo de barra: ${data}, ${valor.nombre}`)
+/*           console.log(valor.nombre)
+ */          ))
         : console.log("error")}
     };
   
