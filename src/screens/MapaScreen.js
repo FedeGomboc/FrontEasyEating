@@ -38,8 +38,6 @@ function MapaScreen() {
     obtenerRestaurantes();
   }, []);
   
-  const imgExterna = {uri: 'https://legacy.reactjs.org/logo-og.png'};
-  const imgLocal   = require('./../assets/icons/logo.png');
   return (
     <View style={styles.container}>
       <Modal animationType="slide" transparent={true} visible={modalVisible} onRequestClose={() => {setModalVisible(!modalVisible);}}>
@@ -48,13 +46,12 @@ function MapaScreen() {
           {restauranteSeleccionado && 
           <>
           <Text style={styles.modalText}>Nombre: {restauranteSeleccionado.nombre}</Text>
-          <Image source={imgLocal} style={{ width: "100%", height: "50%",    justifyContent: 'center'}}/>
           <Text style={styles.modalText}>Direccion: {restauranteSeleccionado.direccion}</Text>
           <Text style={styles.modalText}>Horario: {restauranteSeleccionado.horario}</Text>
           <Text style={styles.modalText}>Telefono: {restauranteSeleccionado.telefono}</Text>
-          <Image source={imgExterna} style={{ width: "100%", height: "50%",flex: 1,    justifyContent: 'center'}}/>
+          <Image source={{ uri: restauranteSeleccionado.foto }} style={{ width: "100%", height: "50%", flex: 1, justifyContent: 'center' }} />
           
-          {console.log("'" + restauranteSeleccionado.foto + "'")}
+          {console.log("URL de la imagen:", restauranteSeleccionado.foto)}
           </>
           }
             <TouchableOpacity style={[styles.button, styles.buttonClose]} onPress={() => setModalVisible(!modalVisible)}>
