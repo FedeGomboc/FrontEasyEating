@@ -49,9 +49,9 @@ function MapaScreen() {
           <Text style={styles.modalText}>Direccion: {restauranteSeleccionado.direccion}</Text>
           <Text style={styles.modalText}>Horario: {restauranteSeleccionado.horario}</Text>
           <Text style={styles.modalText}>Telefono: {restauranteSeleccionado.telefono}</Text>
-          <Image source={{ uri: restauranteSeleccionado.foto }} style={{ width: "100%", height: "50%", flex: 1, justifyContent: 'center' }} />
+          {/* <Image source={{ uri: restauranteSeleccionado.foto }} style={{ width: "100%", height: "50%", flex: 1, justifyContent: 'center' }} />
           
-          {console.log("URL de la imagen:", restauranteSeleccionado.foto)}
+          {console.log("URL de la imagen:", restauranteSeleccionado.foto)} */}
           </>
           }
             <TouchableOpacity style={[styles.button, styles.buttonClose]} onPress={() => setModalVisible(!modalVisible)}>
