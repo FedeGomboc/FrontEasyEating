@@ -4,12 +4,10 @@ import { BarCodeScanner } from "expo-barcode-scanner";
 import Constants from "expo-constants";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigation } from "@react-navigation/native";
 
 const EscanerScreen = () => {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
-
   let host = "A-PHZ2-CIDI-011";
   let port = "5000";
 
@@ -43,18 +41,15 @@ const EscanerScreen = () => {
         console.log(error);
       });
   };
-/* 
+  /* 
   useEffect(() => {
-    if (valores !== null) {
-      if (valores && valores.length > 0) {
-        valores.map((valor, index) =>
-          alert(`Codigo del codigo de barra: ${data}, ${valor.nombre}`)
-        );
-      } else {
-        console.log("errorrrr");
-      }
+    if (valores && valores.length > 0) {
+        alert(`Codigo del codigo de barra: ${valores[0].barCode}, ${valores[0].nombre}`)
+    } else {
+      console.log("errorrrr");
     }
-  }, [valores]) */
+    setScanned(true);
+  }, [valores]); */
 
   useEffect(() => {
     const getBarCodeScannerPermissions = async () => {
@@ -64,18 +59,6 @@ const EscanerScreen = () => {
     getBarCodeScannerPermissions();
   }, []);
 
-  const handleBarCodeScanned = async ({ type, data }) => {
-    await obtenerDatos(data);
-    if (valores && valores.length > 0) {
-      valores.map((valor, index) =>
-        alert(`Codigo del codigo de barra: ${data}, ${valor.nombre}`)
-      );
-    } else {
-      console.log("errorrrr");
-    }
-    setScanned(true);
-  };
-
   if (hasPermission === null) {
     return <Text>Requesting for camera permission</Text>;
   }
@@ -83,11 +66,32 @@ const EscanerScreen = () => {
     return <Text>No access to camera</Text>;
   }
 
+  const handleBarCodeScanned = async ({ type, data }) => {
+    setScanned(true);
+    await obtenerDatos(data)
+    mostrarDatos()
+  };
+
+  const mostrarDatos = () => {
+    setScanned(true);
+    if (valores && valores.length > 0) {
+      alert( `Codigo del codigo de barra: ${valores[0].barCode}, ${valores[0].nombre}`);
+    } else {
+      console.log("errorrrr");
+    }
+  };
+
   return (
     <View style={styles.container}>
-      <BarCodeScanner onBarCodeScanned={scanned ? undefined : handleBarCodeScanned} style={StyleSheet.absoluteFillObject}/>
+      <BarCodeScanner
+        onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+        style={StyleSheet.absoluteFillObject}
+      />
       {scanned && (
-        <Button title={"Toca para escanear de vuelta"} onPress={() => setScanned(false)}/>
+        <Button
+          title={"Toca para escanear de vuelta"}
+          onPress={() => setScanned(false)}
+        />
       )}
     </View>
   );
