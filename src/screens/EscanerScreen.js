@@ -14,6 +14,7 @@ const EscanerScreen = () => {
   const [valores, setValores] = useState([]);
 
   const obtenerDatos = async (data) => {
+    let nuevosValores = []
     /* console.log("obtenerDatos"); */
     /* ${data.data} */
     /* console.log(data); */
@@ -37,19 +38,32 @@ const EscanerScreen = () => {
         setValores(nuevosValores);
       })
       .catch((error) => {
-        console.log("error:");
-        console.log(error);
+        console.log("error:", error);
+        alert("Error al obtener datos del servidor, el producto podría no estar en la base de datos");
       });
   };
-  /* 
-  useEffect(() => {
-    if (valores && valores.length > 0) {
-        alert(`Codigo del codigo de barra: ${valores[0].barCode}, ${valores[0].nombre}`)
-    } else {
-      console.log("errorrrr");
-    }
-    setScanned(true);
-  }, [valores]); */
+
+  /* const esApto = () => {
+    axios
+      .get("https://backendeasyeating.onrender.com/api/limitacionxproducto")
+      .then ((result) => {
+        datos = result.data
+
+        datos.map((Info) => {
+
+          const {idLimitacionXProducto, idProducto, idLimitacion} = Info
+
+          {valores
+            if(valores[0].idProducto) == Info.idProducto{
+
+            }
+          }
+        })
+      })
+      .catch ((error) => {
+        console.log(error)
+      })
+  } */
 
   useEffect(() => {
     const getBarCodeScannerPermissions = async () => {
@@ -69,13 +83,23 @@ const EscanerScreen = () => {
   const handleBarCodeScanned = async ({ type, data }) => {
     setScanned(true);
     await obtenerDatos(data)
-    mostrarDatos()
+    await mostrarDatos()
   };
+
+ /*  useEffect(async () => {
+    await mostrarDatos
+  }, [valores]); */
 
   const mostrarDatos = () => {
     setScanned(true);
     if (valores && valores.length > 0) {
-      alert( `Codigo del codigo de barra: ${valores[0].barCode}, ${valores[0].nombre}`);
+      alert( `
+      Codigo de barra: ${valores[0].barCode}, 
+      Nombre: ${valores[0].nombre}, 
+      Proteinas: ${valores[0].proteinas}
+      Carbohidratos: ${valores[0].carbohidratos}
+      Grasas: ${valores[0].grasas}
+      Calorias: ${valores[0].calorias}`);
     } else {
       console.log("errorrrr");
     }
