@@ -8,8 +8,6 @@ import axios from "axios";
 const EscanerScreen = () => {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
-  let host = "A-PHZ2-CIDI-011";
-  let port = "5000";
 
   const [valores, setValores] = useState([]);
 
@@ -24,7 +22,7 @@ const EscanerScreen = () => {
       .get(url)
       .then((result) => {
         console.log('OK');
-          nuevosValores = [
+        nuevosValores = [
           {
             idProducto: result.data.idProducto,
             barCode: result.data.barCode,
@@ -41,6 +39,7 @@ const EscanerScreen = () => {
         console.log("error:", error);
         alert("Error al obtener datos del servidor, el producto podría no estar en la base de datos");
       });
+
   };
 
   /* const esApto = () => {
@@ -65,6 +64,33 @@ const EscanerScreen = () => {
       })
   } */
 
+
+  const handleBarCodeScanned = async ({ type, data }) => {
+    setScanned(true);
+    await obtenerDatos(data)
+
+  };
+
+
+  const mostrarDatos = () => {
+    setScanned(true);
+    if (valores && valores.length > 0) {
+      alert(`
+      Codigo de barra: ${valores[0].barCode}, 
+      Nombre: ${valores[0].nombre}, 
+      Proteinas: ${valores[0].proteinas}
+      Carbohidratos: ${valores[0].carbohidratos}
+      Grasas: ${valores[0].grasas}
+      Calorias: ${valores[0].calorias}`);
+    } else {
+      console.log("errorrrr");
+    }
+  };
+
+  useEffect(() => {
+    mostrarDatos()
+  }, [valores]);
+
   useEffect(() => {
     const getBarCodeScannerPermissions = async () => {
       const { status } = await BarCodeScanner.requestPermissionsAsync();
@@ -79,31 +105,6 @@ const EscanerScreen = () => {
   if (hasPermission === false) {
     return <Text>No access to camera</Text>;
   }
-
-  const handleBarCodeScanned = async ({ type, data }) => {
-    setScanned(true);
-    await obtenerDatos(data)
-    await mostrarDatos()
-  };
-
- /*  useEffect(async () => {
-    await mostrarDatos
-  }, [valores]); */
-
-  const mostrarDatos = () => {
-    setScanned(true);
-    if (valores && valores.length > 0) {
-      alert( `
-      Codigo de barra: ${valores[0].barCode}, 
-      Nombre: ${valores[0].nombre}, 
-      Proteinas: ${valores[0].proteinas}
-      Carbohidratos: ${valores[0].carbohidratos}
-      Grasas: ${valores[0].grasas}
-      Calorias: ${valores[0].calorias}`);
-    } else {
-      console.log("errorrrr");
-    }
-  };
 
   return (
     <View style={styles.container}>
